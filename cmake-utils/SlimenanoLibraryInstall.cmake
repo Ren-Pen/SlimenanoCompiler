@@ -1,0 +1,49 @@
+cmake_minimum_required(VERSION 3.15.0)
+
+include(CMakePackageConfigHelpers)
+include(SlimenanoArch)
+
+function(slimenano_install LIBRARY_TARGET_NAME LIB_VERSION EXPORT_NAMESPACE EXPORT_NAME INCLUDE_DIR)
+
+    slimenano_arch(ARCH)
+    set(CONFIG_FILE_NAME "${LIBRARY_TARGET_NAME}Config.cmake")
+    set(VERSION_FILE_NAME "${LIBRARY_TARGET_NAME}ConfigVersion.cmake")
+    set(SLIMENANO_INSTALL_PREFIX "${LIBRARY_TARGET_NAME}-${LIB_VERSION}-${CMAKE_CXX_COMPILER_ID}-${ARCH}-${CMAKE_BUILD_TYPE}")
+    string(TOLOWER "${SLIMENANO_INSTALL_PREFIX}" SLIMENANO_INSTALL_PREFIX)
+    string(REPLACE "_" "-" SLIMENANO_INSTALL_PREFIX "${SLIMENANO_INSTALL_PREFIX}")
+
+    set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES EXPORT_NAME ${EXPORT_NAME})
+    set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES OUTPUT_NAME ${SLIMENANO_INSTALL_PREFIX})
+    target_include_directories(${LIBRARY_TARGET_NAME} INTERFACE $<INSTALL_INTERFACE:include/${SLIMENANO_INSTALL_PREFIX}/>)
+
+    install(TARGETS ${LIBRARY_TARGET_NAME} EXPORT ${LIBRARY_TARGET_NAME}Targets
+            RUNTIME DESTINATION "bin/${SLIMENANO_INSTALL_PREFIX}"
+            LIBRARY DESTINATION "lib/${SLIMENANO_INSTALL_PREFIX}"
+            ARCHIVE DESTINATION "lib/${SLIMENANO_INSTALL_PREFIX}")
+
+    if (NOT INCLUDE_DIR STREQUAL "")
+        install(DIRECTORY "${INCLUDE_DIR}/"
+                DESTINATION "include/${SLIMENANO_INSTALL_PREFIX}"
+                FILES_MATCHING PATTERN "*.hpp")
+    endif ()
+
+    install(EXPORT ${LIBRARY_TARGET_NAME}Targets
+            NAMESPACE ${EXPORT_NAMESPACE}::
+            DESTINATION "lib/cmake/${SLIMENANO_INSTALL_PREFIX}"
+    )
+
+    write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${VERSION_FILE_NAME}"
+            VERSION ${LIB_VERSION}
+            COMPATIBILITY SameMajorVersion)
+
+    configure_package_config_file("${PROJECT_SOURCE_DIR}/cmake/${CONFIG_FILE_NAME}.in"
+            "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}"
+            INSTALL_DESTINATION "lib/cmake/${SLIMENANO_INSTALL_PREFIX}"
+    )
+
+
+    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}"
+            "${CMAKE_CURRENT_BINARY_DIR}/${VERSION_FILE_NAME}"
+            DESTINATION "lib/cmake/${SLIMENANO_INSTALL_PREFIX}")
+
+endfunction()
