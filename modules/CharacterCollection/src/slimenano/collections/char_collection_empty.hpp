@@ -11,9 +11,10 @@ namespace slimenano {
 
     class SLIMENANO_API_ char_collection_empty final : public char_collection {
     public:
+        char_collection_empty() = default;
         ~char_collection_empty() override = default;
 
-        bool contains(uint32_t character) override;
+        bool contains(const uint32_t& character) const override;
     };
 
 

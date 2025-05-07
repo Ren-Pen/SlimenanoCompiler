@@ -5,7 +5,7 @@
 
 namespace slimenano {
 
-    bool char_collection_empty::contains(uint32_t character) {
+    bool char_collection_empty::contains(const uint32_t& character) const {
         UNUSED(character);
         return false;
     }

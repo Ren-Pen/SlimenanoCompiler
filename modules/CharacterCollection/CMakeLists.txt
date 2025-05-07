@@ -17,10 +17,12 @@ set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 
 set(SRC_FILES "${SRC_DIR}/lib_main.cpp"
         "${SRC_DIR}/slimenano/collections/char_collection_empty.cpp"
+        "${SRC_DIR}/slimenano/collections/char_collection_set.cpp"
 )
 
 set(INCLUDE_FILES "${SRC_DIR}/slimenano/char_collection.hpp"
         "${SRC_DIR}/slimenano/collections/char_collection_empty.hpp"
+        "${SRC_DIR}/slimenano/collections/char_collection_set.hpp"
 )
 
 add_library(${LIBRARY_TARGET_NAME} ${SRC_FILES} ${INCLUDE_FILES})

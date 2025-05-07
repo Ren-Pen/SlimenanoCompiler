@@ -10,9 +10,15 @@
 namespace slimenano{
 
     // A character collection interface
-    struct SLIMENANO_API_ char_collection {
+    class SLIMENANO_API_ char_collection {
+    public:
+        char_collection() = default;
+        char_collection(const char_collection &other) = delete;
+        char_collection(char_collection &&other) noexcept = delete;
+        char_collection & operator=(const char_collection &other) = delete;
+        char_collection & operator=(char_collection &&other) noexcept = delete;
         virtual ~char_collection() = default;
-        virtual bool contains(uint32_t) = 0;
+        virtual bool contains(const uint32_t&) const = 0;
     };
 
 }
