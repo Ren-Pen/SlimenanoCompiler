@@ -8,9 +8,10 @@ IndentPPDirectives: AfterHash
 SpacesInParentheses: false
 SpacesInContainerLiterals: false
 SpaceBeforeParens: ControlStatements
-PointerAlignment: Right
+PointerAlignment: Left
 AllowShortLambdasOnASingleLine: "Empty"
 ColumnLimit: 160
 BreakBeforeBraces: Attach
 AllowShortFunctionsOnASingleLine: InlineOnly
+DerivePointerAlignment: false
 ...
