@@ -14,7 +14,7 @@ namespace slimenano {
         char_collection_empty() = default;
         ~char_collection_empty() override = default;
 
-        bool contains(const uint32_t& character) const override;
+        auto contains(const uint32_t& character) const -> bool override;
     };
 
 

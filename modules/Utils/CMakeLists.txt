@@ -35,3 +35,17 @@ endif()
 
 include(cmake/dependencies.cmake)
 slimenano_install("${LIBRARY_TARGET_NAME}" ${LIB_VERSION} "${NAMESPACE}" "${LIB_NAME}" "${SRC_DIR}")
+
+include(SlimenanoTest)
+
+set(TEST_DIR "${PROJECT_SOURCE_DIR}/test")
+
+slimenano_test_target("slimenano"
+        "utils-avl_tree"
+        "${TEST_DIR}/avl_tree/test_avl_tree.cpp"
+)
+
+slimenano_test_dependencies("slimenano"
+        "utils-avl_tree"
+        "slimenano::utils"
+)

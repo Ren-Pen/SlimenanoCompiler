@@ -13,7 +13,7 @@ namespace slimenano {
     template <typename T>
     class avl_tree {
     public:
-        using avl_visitor = std::function<void(const T&)>;
+        using avl_visitor = std::function<void(const T& data, const int& height)>;
     private:
         class avl_node {
             friend avl_tree;
@@ -55,8 +55,6 @@ namespace slimenano {
 
         void insert(const T& key);
         void remove(const T& key);
-
-    private:
         auto contains(const T& key) const -> bool;
         auto min() const -> T;
         auto max() const -> T;
@@ -64,6 +62,7 @@ namespace slimenano {
         auto empty() const -> bool;
         auto clear() -> void;
         auto inorder_traversal(avl_visitor visitor) const -> void;
+        auto bfs_traversal(avl_visitor visitor) const -> void;
 
     private:
         avl_node* root = nullptr;
@@ -228,7 +227,7 @@ namespace slimenano {
             return;
         }
         inorder_helper(node->left, visitor);
-        visitor(node->key);
+        visitor(node->key, node->height);
         inorder_helper(node->right, visitor);
     }
 
@@ -360,6 +359,40 @@ namespace slimenano {
     template <typename T>
     auto avl_tree<T>::inorder_traversal(avl_visitor visitor) const -> void {
         avl_node::inorder_helper(this->root, visitor);
+    }
+
+    template <typename T>
+    auto avl_tree<T>::bfs_traversal(avl_visitor visitor) const -> void {
+        if (this->empty()) {
+            return;
+        }
+        struct linked_queue {
+            avl_node* node = nullptr;
+            linked_queue* next = nullptr;
+        };
+
+        auto* head = new linked_queue();
+        auto* tail = head;
+        head->node = this->root;
+
+        while (head != nullptr) {
+            auto node = head->node;
+            visitor(node->key, node->height);
+            if (node->left != nullptr) {
+                tail->next = new linked_queue();
+                tail = tail->next;
+                tail->node = node->left;
+            }
+            if (node->right != nullptr) {
+                tail->next = new linked_queue();
+                tail = tail->next;
+                tail->node = node->right;
+            }
+            auto next = head->next;
+            delete head;
+            head = next;
+        }
+
     }
 
 

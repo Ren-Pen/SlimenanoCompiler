@@ -7,11 +7,11 @@
     },
     "configurePresets": [
         {
-            "name": "MinGW-gcc-x64-debug",
-            "displayName": "MinGW x64 (Debug)",
-            "description": "This is a debug build configuration for MinGW x64.",
-            "generator": "MinGW Makefiles",
-            "binaryDir": "${sourceDir}/build/Debug/MinGW",
+            "name": "GNU-gcc-x64-debug",
+            "displayName": "GNU x64 (Debug)",
+            "description": "This is a debug build configuration for GNU x64.",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/Debug/GNU",
             "installDir": "${sourceDir}/target",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
@@ -19,16 +19,16 @@
             },
             "vendor": {
                 "jetbrains.com/clion": {
-                    "toolchain": "MinGW"
+                    "toolchain": "GNU"
                 }
             }
         },
         {
-            "name": "MinGW-gcc-x64-release",
-            "displayName": "MinGW x64 (Release)",
-            "description": "This is a release build configuration for MinGW x64.",
-            "generator": "MinGW Makefiles",
-            "binaryDir": "${sourceDir}/build/Release/MinGW",
+            "name": "GNU-gcc-x64-release",
+            "displayName": "GNU x64 (Release)",
+            "description": "This is a release build configuration for GNU x64.",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/Release/GNU",
             "installDir": "${sourceDir}/target",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
@@ -36,7 +36,7 @@
             },
             "vendor": {
                 "jetbrains.com/clion": {
-                    "toolchain": "MinGW"
+                    "toolchain": "GNU"
                 }
             }
         },

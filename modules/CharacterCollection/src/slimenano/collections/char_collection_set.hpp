@@ -17,7 +17,7 @@ namespace slimenano {
         char_collection_set(const uint32_t* charset, size_t size);
         ~char_collection_set() override = default;
 
-        bool contains(const uint32_t& character) const override;
+        auto contains(const uint32_t& character) const -> bool override;
     private:
 
     };

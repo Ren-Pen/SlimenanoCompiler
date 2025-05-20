@@ -18,7 +18,7 @@ namespace slimenano{
         char_collection & operator=(const char_collection &other) = delete;
         char_collection & operator=(char_collection &&other) noexcept = delete;
         virtual ~char_collection() = default;
-        virtual bool contains(const uint32_t&) const = 0;
+        virtual auto contains(const uint32_t&) const -> bool = 0;
     };
 
 }
